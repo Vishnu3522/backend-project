@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -7,9 +8,9 @@ const app = express();
 const port = 3001;
 app.use(cors());
 
-const mongoURI = 'mongodb+srv://vishnukumarit24:VaymV8r2k6wSL6eA@cluster0.q6pihp1.mongodb.net/?retryWrites=true&w=majority';
+const db = process.env.mongoURI;
 
-mongoose.connect(mongoURI, {
+mongoose.connect(db, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -46,14 +47,14 @@ app.post('/api/formdata', async (req, res) => {
 });
 
 app.get('/displaydata', async (req, res) => {
-    try {
-      const allFormData = await FormData.find();
-      res.json(allFormData);
-    } catch (err) {
-      console.error('Error fetching data from MongoDB:', err);
-      res.status(500).send('Internal Server Error');
-    }
-  });
+  try {
+    const allFormData = await FormData.find();
+    res.json(allFormData);
+  } catch (err) {
+    console.error('Error fetching data from MongoDB:', err);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
