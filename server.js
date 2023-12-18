@@ -8,7 +8,7 @@ const app = express();
 const port = 3001;
 app.use(cors());
 
-const db = process.env.mongoURI;
+const db = "mongodb+srv://vishnukumarit24:VaymV8r2k6wSL6eA@cluster0.q6pihp1.mongodb.net/?retryWrites=true&w=majority"
 
 mongoose.connect(db, {
   useNewUrlParser: true,
